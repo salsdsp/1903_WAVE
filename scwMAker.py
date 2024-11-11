@@ -4,7 +4,7 @@ import struct
 
 audio = []
 sampleRate = 44100.0
-saveFile = "output.wav"
+saveFile = "Waveforms/test.wav"
 
 def myWave(sample):
     lsam = 0
