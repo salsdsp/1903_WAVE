@@ -6,12 +6,12 @@ import numpy as np
 
 audio = []
 sampleRate = 44100.0
-saveFile = "Waveforms/cursed_two.wav"
+saveFile = "Waveforms/cursed_three.wav"
 
 def myWave(sample):
     lsam = 0
     for harm in range(1,2**16):
-        lsam += math.sin(harm*sample + 270/harm**2)/harm**1.5
+        lsam += math.cos(harm*sample/2 - math.sin(harm))*math.sin(harm*sample + math.cos(harm))/harm**2
     return lsam
 
 def generate_wave(volume=0.5):
