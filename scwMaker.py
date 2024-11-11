@@ -1,15 +1,17 @@
 import math
 import wave
 import struct
+import matplotlib.pyplot as plt
+import numpy as np
 
 audio = []
 sampleRate = 44100.0
-saveFile = "Waveforms/test.wav"
+saveFile = "Waveforms/cursed_two.wav"
 
 def myWave(sample):
     lsam = 0
     for harm in range(1,2**16):
-        lsam += math.sin(harm*sample)/harm
+        lsam += math.sin(harm*sample + 270/harm**2)/harm**1.5
     return lsam
 
 def generate_wave(volume=0.5):
@@ -47,3 +49,11 @@ generate_wave()
 save_wav(saveFile)
 print("Completed without error.")
 print("Saved to",saveFile)
+times = np.linspace(0, 2696/sampleRate, 2696)
+plt.figure(figsize=(12,6))
+plt.plot(times, audio)
+plt.title('Waveform')
+plt.ylabel('Amplitude')
+plt.xlabel('Time (s)')
+plt.xlim(0, len(audio)/sampleRate)
+plt.show()
