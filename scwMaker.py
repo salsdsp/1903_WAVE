@@ -7,16 +7,17 @@ import random as rand
 
 audio = []
 sampleRate = 44100.0
-saveFile = "Waveforms/superwave_eight.wav"
+saveFile = "Waveforms/1984.wav"
 msam = 0.0
 
 def myWave(sample):
     lsam = 0
     temp = 0
-    for harm in range(1,2**16):
+    for harm in range(1,2**16,2):
         #lsam += math.cos(math.tan(harm*sample/harm**0.5 - math.sin(math.tan(harm**0.1))/harm**0.5))*math.sin(harm*sample/2 + math.tan(4*harm))/harm**2
         #lsam += math.sin(sample*(harm**(1.5+math.cos(harm/math.pi))))/harm**2.3
-        lsam += math.atan(math.sin(sample*harm)*200/harm)/harm**2 - math.sin(harm*sample)/harm**2
+        #lsam += math.atan(math.sin(sample*harm)*200/harm)/harm**2 - math.sin(harm*sample)/harm**2
+        lsam += math.sin(harm*sample)/harm**1.5 ** math.atan(math.sin(harm*sample)*100)/harm**1.1
     return lsam
 
 def generate_wave(volume=0.5):
