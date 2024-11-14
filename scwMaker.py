@@ -7,7 +7,7 @@ import random as rand
 
 audio = []
 sampleRate = 44100.0
-saveFile = "Waveforms/cursed_seven.wav"
+saveFile = "Waveforms/superwave_eight.wav"
 msam = 0.0
 
 def myWave(sample):
@@ -15,8 +15,8 @@ def myWave(sample):
     temp = 0
     for harm in range(1,2**16):
         #lsam += math.cos(math.tan(harm*sample/harm**0.5 - math.sin(math.tan(harm**0.1))/harm**0.5))*math.sin(harm*sample/2 + math.tan(4*harm))/harm**2
-        rphase = rand.random()
-        lsam += (math.sin(harm*sample**0.25+(0.1*rphase)/harm)/harm**1.05*math.atan(math.sin((rphase*0.1/harm+1)*harm*sample)*20)/harm**2)/harm**2
+        #lsam += math.sin(sample*(harm**(1.5+math.cos(harm/math.pi))))/harm**2.3
+        lsam += math.atan(math.sin(sample*harm)*200/harm)/harm**2 - math.sin(harm*sample)/harm**2
     return lsam
 
 def generate_wave(volume=0.5):
