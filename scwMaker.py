@@ -11,23 +11,20 @@ saveFile = "Waveforms/output.wav"
 msam = 0.0
 
 def myWave(sample):
-    lsam = 0
+    n = 0
     temp = 0
     harm = 1
-    while harm < 2**16:
-        #lsam += math.cos(math.tan(harm*sample/harm**0.5 - math.sin(math.tan(harm**0.1))/harm**0.5))*math.sin(harm*sample/2 + math.tan(4*harm))/harm**2
-        #lsam += math.sin(sample*(harm**(1.5+math.cos(harm/math.pi))))/harm**2.3
-        #lsam += math.atan(math.sin(sample*harm)*200/harm)/harm**2 - math.sin(harm*sample)/harm**2
-        lsam += math.sin(harm*sample)/harm**2
-        harm = harm + math.sqrt(harm)
-    return lsam
+    while harm <= 256:
+         n += math.sin(harm*sample)/harm
+         harm+=10*rand.random()+5
+    return n
 
 def generate_wave(volume=0.5):
 
     global audio, msam
 
     for x in range(0,2696):
-        sample = 2 * math.pi * 16.351 * ( x / sampleRate )
+        sample = 2 * math.pi * 16.3516 * ( x / sampleRate )
         temp = volume * myWave(sample)
         if abs(temp) > abs(msam):
             msam = temp
