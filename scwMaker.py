@@ -7,16 +7,16 @@ import random as rand
 
 audio = []
 sampleRate = 44100.0
-saveFile = "Waveforms/output.wav"
+saveFile = "Waveforms/french_saw_6.wav"
 msam = 0.0
 
 def myWave(sample):
     n = 0
-    temp = 0
-    harm = 1
-    while harm <= 256:
-         n += math.sin(harm*sample)/harm
-         harm+=10*rand.random()+5
+    for harm in range(1,2**12):
+        n += math.sin(harm*sample)/harm**0.8
+        n += math.atan(101*math.sin(harm*sample))/harm**9
+        n -= math.sin(harm*sample)/harm**2
+        n -= math.atan(71*math.sin(harm*sample))/harm**3
     return n
 
 def generate_wave(volume=0.5):
@@ -43,6 +43,7 @@ def save_wav(file_name):
 
     global audio
     global msam
+    buffer = []
     
     nchannels = 1
 
@@ -52,9 +53,12 @@ def save_wav(file_name):
     comptype = "NONE"
     compname = "not compressed"
     wav_file.setparams((nchannels, sampwidth, sampleRate, nframes, comptype, compname))
-    
+
+    count = 0
     for sample in audio:
         wav_file.writeframes(struct.pack('h', int( sample/(abs(msam)/.95) * 32767.0 )))
+        buffer.append(sample/(abs(msam)))
+    audio = buffer
 
     wav_file.close()
 
@@ -67,7 +71,7 @@ save_wav(saveFile)
 print("Completed without error")
 print("Saved to",saveFile)
 times = np.linspace(0, 2696/sampleRate, 2696)
-plt.figure(figsize=(12,6))
+plt.figure(figsize=(15,6))
 plt.plot(times, audio)
 plt.title('Waveform')
 plt.ylabel('Amplitude')
