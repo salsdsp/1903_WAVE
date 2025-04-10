@@ -7,16 +7,13 @@ import random as rand
 
 audio = []
 sampleRate = 44100.0
-saveFile = "Waveforms/french_saw_6.wav"
+saveFile = "Waveforms/combiwave_9.wav"
 msam = 0.0
 
 def myWave(sample):
     n = 0
     for harm in range(1,2**12):
-        n += math.sin(harm*sample)/harm**0.8
-        n += math.atan(101*math.sin(harm*sample))/harm**9
-        n -= math.sin(harm*sample)/harm**2
-        n -= math.atan(71*math.sin(harm*sample))/harm**3
+        n += math.cos(harm*sample)**(12-int(11 * math.cos(harm*sample)/harm**2))/harm**1.5
     return n
 
 def generate_wave(volume=0.5):
