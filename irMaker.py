@@ -7,12 +7,12 @@ import random as rand
 
 audio = []
 sampleRate = 44100.0
-irLength = 1
-delay = 0.05
+irLength = 10
+delay = 0.1
 delay = int(sampleRate*delay)
 irLength *= int(sampleRate)
 lfoFreq = 440
-saveFile = "GenIRs/test1.wav"
+saveFile = "GenIRs/test3.wav"
 msam = 0.0
 
 """
@@ -28,14 +28,18 @@ def generate_wave(volume=0.5):
     global audio, msam
 
     for x in range(0, delay):
-        audio.append(0)
+        if(x%rand.randint(137,217)==0):
+            audio.append(rand.random()*.7*math.sin(x))
+        else:
+            audio.append(0)
     for x in range(0,irLength):
         lfo = 2 * math.pi * math.sin(x*lfoFreq) * ( x / sampleRate )
         #temp = volume * myWave(sample)
-        temp = rand.random()*((irLength-x)/irLength)**3 * math.sin(lfo)
+        temp = rand.random()*((irLength-x)/irLength)**5 * math.sin(lfo)
         if abs(temp) > abs(msam):
             msam = temp
         audio.append(temp)
+        #audio[x-1] *= audio[x]
     return
 
 
